@@ -1,0 +1,20 @@
+.set {
+  height: 80vh;
+}
+.butoon{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  /* border: 1px solid black; */
+}
+.butoon button {
+  width: 23%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main{
+  /* position: relative; */
+  cursor: pointer;
+}
+
