@@ -6,6 +6,8 @@ function App() {
   const [progress, setProgress] = useState([]);
   const [suspend, setSuspend] = useState([]);
   const [complete, setcomplete] = useState([]);
+  const [editactivity, seteditactivity] = useState(null);
+  const [edittodo,  setEdittodo] = useState('');
 
   const handleActivity = (input) => {
     const i = input.trim();
@@ -14,6 +16,17 @@ function App() {
     setInput("");
   };
 
+   const addedit = (index) => {
+    let etodo = edittodo.trim()
+    if (!etodo) {
+      alert('Add a task to proceed')
+      return
+    }else{
+      activity[index] = etodo
+      setActivity([...activity])
+      seteditactivity(null)
+    }
+   }
   const starttodo = (event, index) => {
     progress.push(activity[index]);
     setProgress([...progress]);
@@ -103,7 +116,7 @@ function App() {
                 key={index}
                 className="w-100 rounded-2 bg-primary h-auto px-4 py-2 mt-2 "
               >
-                <div className="w-100 text-center text-light fs-4">{value}</div>
+                {editactivity === index ?  <div className="w-100 text-center text-light fs-4"><input className="form-control text-center" value={edittodo} onChange={(e) => setEdittodo(e.target.value)} type="text" /></div> : <div className="w-100 text-center text-light fs-4">{value}</div> }
                 <div
                   className="row d-flex align-item-center justify-content-around  mt-3 "
                   style={{ height: "5vh" }}
@@ -114,9 +127,11 @@ function App() {
                   >
                     <i className="fa-solid fa-play"></i>
                   </button>
-                  <button className="bg-info text-light col-md-3 border border-0 rounded ">
+                 {editactivity === index ? <button className="bg-info text-light col-md-3 border border-0 rounded " onClick={() => addedit(index)}>
+                 <i class="fa-solid fa-plus"></i>
+                  </button> : <button className="bg-info text-light col-md-3 border border-0 rounded " onClick={() => seteditactivity(index)}>
                     <i className="fa-regular fa-pen-to-square"></i>
-                  </button>
+                  </button> } 
                   <button
                     className="bg-danger text-light col-md-4 border border-0 rounded "
                     onClick={(event) => deletetodo(event, index)}
